@@ -2,11 +2,19 @@
 import os
 import requests
 
-TWELVE_DATA_API_KEY = os.environ.get('TWELVE_DATA_API_KEY')
-API_LINK = 'https://api.twelvedata.com'
+
+def get_tweleve_data_api_key()->str:
+    try:
+        return os.environ.get('TWELVE_DATA_API_KEY')
+    except Exception as e:
+        print(e)
+        print("Error getting API key")
+        return '0000000000000000000'
 
 
 def get_bitcoin_pricing_from_difference_currencies()->dict:
+    API_LINK = 'https://api.twelvedata.com'
+    TWELVE_DATA_API_KEY = get_tweleve_data_api_key()
     ticker_list = ["BTC/USD", "BTC/EUR", "BTC/CAD", "BTC/GBP"]
     pricing = {}
 
